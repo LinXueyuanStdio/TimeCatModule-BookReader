@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_status_bar" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_below="@+id/tint_statusbar"
+        app:contentInsetStart="12dp">
+        <!--添加Toolbar的子控件-->
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/back"
+            android:src="@drawable/novel_ic_arrow_back"
+            android:tint="@color/master_icon_view" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/title"
+            android:textColor="@color/master_textColorPrimary"
+            android:textSize="16sp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="6dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/local_book_rv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:paddingBottom="@dimen/dp_50"
+                    app:bg_color="@color/transparent"
+                    app:font_color="@color/primaryText"
+                    app:second_color="#c1c1c1"
+                    app:second_max_progress="80dp"
+                    app:speed="2dp" />
+
+            </FrameLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <LinearLayout
+            android:id="@+id/action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/background_card"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/back"
+                android:src="@drawable/novel_ic_arrow_back"
+                android:tint="@color/primaryText" />
+
+            <TextView
+                android:id="@+id/tv_select_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/primaryText" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/iv_select_all"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:contentDescription="@string/del_select"
+                android:src="@drawable/ic_select_all_24dp"
+                android:tint="@color/primaryText"
+                tools:ignore="RtlHardcoded" />
+
+            <ImageView
+                android:id="@+id/iv_del"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:contentDescription="@string/del_select"
+                android:src="@drawable/novel_ic_clear_all"
+                android:tint="@color/primaryText"
+                tools:ignore="RtlHardcoded" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:animateLayoutChanges="true"
+        app:cardBackgroundColor="#aa000000"
+        app:cardCornerRadius="24dp"
+        app:cardPreventCornerOverlap="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|center_vertical|center_horizontal|center"
+            android:minHeight="48dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_add_new"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toStartOf="@+id/start_record"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:paddingStart="24dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="找书..."
+                android:textColor="@color/master_textColorPrimary_reverse"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/start_record"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerInParent="true"
+                android:scaleType="center"
+                android:src="@drawable/ic_apps_white_24dp"
+                android:tag="recordBtn"
+                android:tint="@color/master_icon_view_reverse" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/layout_bar_more"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@+id/action_arrange_bookshelf"
+                android:layout_toEndOf="@+id/start_record"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:justifyContent="space_evenly">
+
+                <ImageView
+                    android:id="@+id/action_add_local"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:scaleType="center"
+                    android:src="@drawable/novel_ic_add"
+                    android:tint="@color/master_icon_view" />
+
+                <ImageView
+                    android:id="@+id/action_add_url"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:scaleType="center"
+                    android:src="@drawable/novel_ic_add"
+                    android:tint="@color/master_icon_view" />
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <ImageView
+                android:id="@+id/action_arrange_bookshelf"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="center"
+                android:src="@drawable/novel_ic_arrange"
+                android:tint="@color/master_icon_view_reverse" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

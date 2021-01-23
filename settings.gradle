@@ -1,7 +1,7 @@
 include ':app'
-include ':module-git'
+include ':module-book-reader'
 
-rootProject.name = "TimeCatModuleTemplate"
+rootProject.name = "TimeCatModule-BookReader"
 
 // 引入composing的设置
 apply from: "gradle/composingConfig.gradle"

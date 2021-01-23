@@ -1,2 +1,2 @@
-# TimeCatModuleTemplate
-时光猫组件模板
+# TimeCatModule-BookReader
+时光猫组件 小说阅读器

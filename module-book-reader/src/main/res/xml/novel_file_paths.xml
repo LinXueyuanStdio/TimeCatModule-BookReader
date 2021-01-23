@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!--  module org note-->
+    <external-path
+        name="external-path-current"
+        path="." />
+
+    <!-- Workaround to be able to access files on any storage
+         https://issuetracker.google.com/issues/37125252#comment20 -->
+    <root-path
+        name="root-path-storage"
+        path="/storage/" />
+
+    <!--  module bookreader-->
+    <external-path
+        name="share"
+        path="/" />
+    <external-path
+        name="external_files"
+        path="." />
+
+    <external-path
+        name="files_cache"
+        path="Android/data/com.kunfei.bookshelf/cache" />
+    <external-path
+        name="external_storage_root"
+        path="." />
+    <files-path
+        name="files"
+        path="." />
+    <cache-path
+        name="cache"
+        path="." />
+    <external-path
+        name="external"
+        path="." />
+    <external-files-path
+        name="external_files_path"
+        path="." />
+
+    <!--代表外部存储区域的根目录下的文件 Environment.getExternalStorageDirectory()/DCIM/timecat-->
+    <external-path
+        name="DCIM"
+        path="DCIM/timecat" />
+
+    <!--代表外部存储区域的根目录下的文件 Environment.getExternalStorageDirectory()/目录-->
+    <external-path
+        name="external_storage_root"
+        path="." />
+
+    <!--代表外部存储区域的根目录下的文件 Environment.getExternalStorageDirectory()/Pictures/timecat-->
+    <external-path
+        name="Pictures"
+        path="Pictures/timecat" />
+
+    <!--代表app 私有的存储区域 Context.getFilesDir()目录下的images目录 /data/user/0/com.time.cat/files/images-->
+    <files-path
+        name="private_files"
+        path="images" />
+
+    <!--代表app 私有的存储区域 Context.getCacheDir()目录下的images目录 /data/user/0/com.time.cat/cache/images-->
+    <cache-path
+        name="private_cache"
+        path="images" />
+
+    <!--代表app 外部存储区域根目录下的文件 Context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)目录下的Pictures目录-->
+    <!--/storage/emulated/0/Android/data/com.xx.xxxxxx/files/Pictures-->
+    <!--<external-files-path-->
+    <!--name="external_files"-->
+    <!--path="Pictures"/>-->
+
+    <!--代表app 外部存储区域根目录下的文件 Context.getExternalCacheDir目录下的images目录-->
+    <!--/storage/emulated/0/Android/data/com.xx.xxxxxx/cache/images-->
+    <external-cache-path
+        name="external_cache"
+        path="." />
+
+</paths>

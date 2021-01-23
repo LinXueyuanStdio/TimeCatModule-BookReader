@@ -1,0 +1,166 @@
+apply from: "${project.rootDir}/gradle/library_header.gradle"
+
+//apply plugin: 'de.timfreiheit.resourceplaceholders'
+
+androidExtensions {
+    experimental = true
+}
+
+android {
+    defaultConfig {
+        consumerProguardFiles 'proguard-rules.pro'
+
+        testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "moduleName"           : project.getName(),
+                        "HOST"                 : project.getName().replace("-", ""),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true",
+                        "room.schemaLocation"  : "$projectDir/schemas".toString()
+                ]
+            }
+        }
+    }
+
+    compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
+        // Sets Java compatibility to Java 8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    packagingOptions {
+        exclude 'proguard-project.txt'
+        exclude 'project.properties'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/DEPENDENCIES'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+//resourcePlaceholders {
+//    files = ['xml/shortcuts.xml']
+//}
+
+kapt {
+    arguments {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
+}
+
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.1'
+    api rootProject.ext.timecat["middle-block"]
+    api rootProject.ext.timecat["component-CommonStatic"]
+
+    testImplementation 'junit:junit:4.13'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //kotlin
+    api rootProject.ext.dependencies["kotlin-stdlib"]
+
+    //androidX
+    api rootProject.ext.androidx_lib["core-ktx"]
+    api rootProject.ext.androidx_lib["appcompat"]
+    api 'androidx.media:media:1.2.1'
+    api rootProject.ext.androidx_lib["preference"]
+    api rootProject.ext.androidx_lib["constraint-layout"]
+    api rootProject.ext.androidx_lib["cardview"]
+    api rootProject.ext.androidx_lib["swiperefreshlayout"]
+    api 'androidx.viewpager2:viewpager2:1.0.0'
+    api rootProject.ext.androidx_lib["design"]
+    api 'com.google.android:flexbox:1.1.0'
+    api 'com.google.code.gson:gson:2.8.6'
+    api 'com.squareup.okio:okio:2.6.0'
+
+    //lifecycle
+    api rootProject.ext.androidx_lib["lifecycle-extensions"]
+    api rootProject.ext.androidx_lib["lifecycle-common-java8"]
+
+    //room
+    api rootProject.ext.androidx_lib["androidx.room:runtime"]
+    testImplementation rootProject.ext.androidx_lib["androidx.room:testing"]
+    kapt rootProject.ext.androidx_lib["androidx.room:compiler"]
+
+    //paging
+    api 'androidx.paging:paging-runtime-ktx:2.1.2'
+
+    //anko
+    def anko_version = '0.10.8'
+    api "org.jetbrains.anko:anko-sdk27:$anko_version"
+    api "org.jetbrains.anko:anko-sdk27-listeners:$anko_version"
+
+    //liveEventBus
+    api 'com.jeremyliao:live-event-bus-x:1.5.7'
+
+    //协程
+    api rootProject.ext.dependencies["kotlinx-coroutines-android"]
+    api rootProject.ext.dependencies["kotlinx-coroutines-core"]
+
+    //规则相关
+    api 'org.jsoup:jsoup:1.13.1'
+    api 'cn.wanghaomiao:JsoupXpath:2.3.2'
+    api 'com.jayway.jsonpath:json-path:2.4.0'
+
+    //JS rhino
+    api 'com.github.gedoor:rhino-android:1.4'
+
+    //网络
+    //noinspection GradleDependency
+    api 'com.squareup.retrofit2:retrofit:2.9.0'
+    api 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+
+    //Glide
+    api rootProject.ext.dependencies["glide"]
+
+    //webServer
+    api 'org.nanohttpd:nanohttpd:2.3.1'
+    api 'org.nanohttpd:nanohttpd-websocket:2.3.1'
+
+    //二维码
+    api 'cn.bingoogolapple:bga-qrcode-zxing:1.3.7'
+
+    //颜色选择
+    api 'com.jaredrummler:colorpicker:1.1.0'
+
+    //apache
+    api 'org.apache.commons:commons-lang3:3.11'
+    api 'org.apache.commons:commons-text:1.8'
+
+    //MarkDown
+    api 'ru.noties.markwon:core:3.1.0'
+
+    //转换繁体
+    api 'com.hankcs:hanlp:portable-1.7.8'
+
+    //epub
+    api('com.positiondev.epublib:epublib-core:3.1') {
+        exclude group: 'org.slf4j'
+        exclude group: 'xmlpull'
+    }
+
+    //E-Ink 有些手机会出现重影
+    //api 'fadeapp.widgets:scrollless-recyclerView:1.0.2'
+}
+
+apply from: "${project.rootDir}/gradle/library_tail.gradle"
