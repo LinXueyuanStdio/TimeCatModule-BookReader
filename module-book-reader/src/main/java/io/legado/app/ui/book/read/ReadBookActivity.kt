@@ -19,6 +19,7 @@ import com.xiaojinzi.component.anno.RouterAnno
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import com.timecat.identity.readonly.RouterHub
 import com.timecat.component.router.app.NAV
+import com.timecat.element.alert.ToastUtil
 import com.timecat.identity.service.ForumService
 import io.legado.app.BuildConfig
 import io.legado.app.R
@@ -299,7 +300,15 @@ class ReadBookActivity : VMBaseActivity<ReadBookViewModel>(R.layout.novel_activi
             "forum".hashCode() -> {
                 NAV.service(ForumService::class.java)?.let{
                     ReadBook.book?.let {book->
-                        it.gotoForum(book.name, book.intro, book.coverUrl)
+                        it.exist(book.name, object :ForumService.ExistCallback{
+                            override fun onExist(blockId: String?) {
+                                NAV.go(RouterHub.USER_ForumDetailActivity, "blockId", blockId)
+                            }
+
+                            override fun notFound() {
+                                ToastUtil.e("未找到")
+                            }
+                        })
                     }
                 }
             }
