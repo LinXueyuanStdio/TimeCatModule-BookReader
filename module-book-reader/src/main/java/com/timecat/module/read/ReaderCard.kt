@@ -1,6 +1,7 @@
 package com.timecat.module.read
 
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -21,7 +22,7 @@ import io.legado.app.ui.book.read.ReadBookActivity
 import io.legado.app.ui.widget.anima.RotateLoading
 import io.legado.app.ui.widget.image.CoverImageView
 import io.legado.app.ui.widget.text.BadgeView
-import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.internals.AnkoInternals
 
 /**
  * @author 林学渊
@@ -80,20 +81,31 @@ class ReaderCard(
 
     fun open(book: Book) {
         when (book.type) {
-            BookType.audio ->
-                context.startActivity<AudioPlayActivity>(Pair("bookUrl", book.bookUrl))
-            else -> context.startActivity<ReadBookActivity>(
-                Pair("bookUrl", book.bookUrl),
-                Pair("key", IntentDataHelp.putData(book))
-            )
+            BookType.audio -> {
+                val intent = AnkoInternals.createIntent(context, AudioPlayActivity::class.java, arrayOf(
+                    "bookUrl" to book.bookUrl
+                ))
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                context.startActivity(intent)
+            }
+            else -> {
+                val intent = AnkoInternals.createIntent(context, ReadBookActivity::class.java, arrayOf(
+                    "bookUrl" to book.bookUrl,
+                    "key" to IntentDataHelp.putData(book)
+                ))
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                context.startActivity(intent)
+            }
         }
     }
 
     fun openBookInfo(book: Book) {
-        context.startActivity<BookInfoActivity>(
-            Pair("name", book.name),
-            Pair("author", book.author)
-        )
+        val intent = AnkoInternals.createIntent(context, BookInfoActivity::class.java, arrayOf(
+            "name" to book.name,
+            "author" to book.author
+        ))
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
     }
 
     private fun upRefresh(itemView: RepoCardVH, item: Book) = with(itemView) {
