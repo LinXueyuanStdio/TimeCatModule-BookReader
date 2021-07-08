@@ -3,10 +3,11 @@ package com.timecat.module.read
 import android.content.Context
 import com.google.android.material.chip.Chip
 import com.timecat.component.router.app.NAV
+import com.timecat.data.room.record.RoomRecord
 import com.timecat.identity.readonly.RouterHub
+import com.timecat.layout.ui.business.breadcrumb.Path
 import com.timecat.layout.ui.layout.setShakelessClickListener
-import com.timecat.middle.block.service.ContainerService
-import com.timecat.middle.block.service.HomeService
+import com.timecat.middle.block.service.*
 import com.xiaojinzi.component.anno.ServiceAnno
 import io.legado.app.App.Companion.db
 import kotlinx.coroutines.Dispatchers
@@ -23,16 +24,30 @@ import kotlinx.coroutines.withContext
  */
 @ServiceAnno(ContainerService::class, name = [RouterHub.GLOBAL_ReaderContainerService])
 class ReaderContainerService : ContainerService {
-    override fun loadContainerButton(context: Context, parentUuid: String, homeService: HomeService, callback: ContainerService.LoadButton) {
-        callback.onLoadSuccess(listOf(
-            Chip(context).apply{
-                text= "书架"
-                setShakelessClickListener {
-                    NAV.go(RouterHub.NOVEL_BookShelfActivity)
-                    homeService.itemCommonListener().close()
-                }
+    override fun loadContext(path: Path, context: Context, parentUuid: String, record: RoomRecord?, homeService: HomeService) {
+        homeService.loadMenu(EmptyMenuContext())
+        homeService.loadHeader(listOf())
+        homeService.loadChipType(listOf())
+        homeService.loadPanel(EmptyPanelContext())
+        homeService.loadChipButtons(listOf(
+            Chip(context).apply {
+            text = "书架"
+            setShakelessClickListener {
+                NAV.go(RouterHub.NOVEL_BookShelfActivity)
+                homeService.itemCommonListener().close()
             }
+        },
+            Chip(context).apply {
+            text = "搜索"
+            setShakelessClickListener {
+                NAV.go(RouterHub.NOVEL_SearchBookActivity)
+                homeService.itemCommonListener().close()
+            }
+        },
         ))
+        homeService.loadCommand(EmptyCommandContext())
+        homeService.loadInputSend(EmptyInputContext())
+        homeService.reloadData()
     }
 
     override fun loadForVirtualPath(context: Context, parentUuid: String, homeService: HomeService, callback: ContainerService.LoadCallback) {
