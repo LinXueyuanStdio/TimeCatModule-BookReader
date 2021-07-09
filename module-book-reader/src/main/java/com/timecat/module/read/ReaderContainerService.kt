@@ -51,6 +51,7 @@ class ReaderContainerService : ContainerService {
     }
 
     override fun loadForVirtualPath(context: Context, parentUuid: String, homeService: HomeService, callback: ContainerService.LoadCallback) {
+        homeService.adapter().setEndlessProgressItem(null)
         GlobalScope.launch(Dispatchers.IO) {
             val allBooks = db.bookDao().all
             val cards = allBooks.map { ReaderCard(it, context) }
