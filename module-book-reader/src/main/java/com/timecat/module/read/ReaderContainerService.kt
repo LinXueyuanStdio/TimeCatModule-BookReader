@@ -50,6 +50,15 @@ class ReaderContainerService : ContainerService {
         homeService.reloadData()
     }
 
+    override fun loadContextRecord(
+        path: Path,
+        context: Context,
+        parentUuid: String,
+        homeService: HomeService
+    ) {
+        homeService.loadContextRecord(null)
+    }
+
     override fun loadForVirtualPath(context: Context, parentUuid: String, homeService: HomeService, callback: ContainerService.LoadCallback) {
         homeService.adapter().setEndlessProgressItem(null)
         GlobalScope.launch(Dispatchers.IO) {

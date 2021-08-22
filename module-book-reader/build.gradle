@@ -2,15 +2,10 @@ apply from: "${project.rootDir}/gradle/library_header.gradle"
 
 //apply plugin: 'de.timfreiheit.resourceplaceholders'
 
-androidExtensions {
-    experimental = true
-}
-
 android {
     defaultConfig {
         consumerProguardFiles 'proguard-rules.pro'
 
-        testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
@@ -25,21 +20,7 @@ android {
     }
 
     compileOptions {
-        // Flag to enable support for the new language APIs
         coreLibraryDesugaringEnabled true
-        // Sets Java compatibility to Java 8
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
     }
 
     packagingOptions {
@@ -53,9 +34,6 @@ android {
         exclude 'META-INF/DEPENDENCIES'
     }
 
-    lintOptions {
-        abortOnError false
-    }
 }
 
 //resourcePlaceholders {
@@ -69,7 +47,7 @@ kapt {
 }
 
 dependencies {
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.1'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     api rootProject.ext.timecat["middle-block"]
     api rootProject.ext.timecat["component-CommonStatic"]
 
