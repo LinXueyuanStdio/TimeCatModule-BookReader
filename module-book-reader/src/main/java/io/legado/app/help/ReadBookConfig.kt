@@ -12,7 +12,7 @@ import io.legado.app.constant.PreferKey
 import io.legado.app.help.coroutine.Coroutine
 import io.legado.app.ui.book.read.page.provider.ChapterProvider
 import io.legado.app.utils.*
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.io.File
 
 /**

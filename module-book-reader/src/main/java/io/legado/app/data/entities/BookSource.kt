@@ -10,7 +10,7 @@ import io.legado.app.constant.BookType
 import io.legado.app.data.entities.rule.*
 import io.legado.app.help.JsExtensions
 import io.legado.app.utils.*
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import javax.script.SimpleBindings
 
 @Parcelize

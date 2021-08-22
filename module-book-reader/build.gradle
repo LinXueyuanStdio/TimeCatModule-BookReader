@@ -1,4 +1,5 @@
 apply from: "${project.rootDir}/gradle/library_header.gradle"
+apply plugin: 'kotlin-parcelize'
 
 //apply plugin: 'de.timfreiheit.resourceplaceholders'
 
